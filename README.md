@@ -1,0 +1,1 @@
+This repository contains files for the regression exercises completed as part of the Codeup Data Science program.
