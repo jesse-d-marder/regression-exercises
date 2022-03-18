@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import sklearn.preprocessing
 
 def wrangle_zillow():
     
@@ -57,3 +58,27 @@ def split_data(df, train_size_vs_train_test = 0.8, train_size_vs_train_val = 0.7
     print(f"Data split as follows: Train {train_size:.2%}, Validate {validate_size:.2%}, Test {test_size:.2%}")
     
     return train, validate, test
+
+def scale_data(train, validate, test, features_to_scale):
+    """Scales Zillow data using MinMax Scaler. 
+    Accepts train, validate, and test datasets as inputs as well as a list of the features to scale. 
+    Returns dataframe with scaled values added on as columns"""
+    
+    # Fit the scaler to train data only
+    scaler = sklearn.preprocessing.MinMaxScaler()
+    scaler.fit(train[features_to_scale])
+    
+    # Generate a list of the new column names with _scaled added on
+    scaled_columns = [col+"_scaled" for col in features_to_scale]
+    
+    # Transform the separate datasets using the scaler learned from train
+    scaled_train = scaler.transform(train[features_to_scale])
+    scaled_validate = scaler.transform(validate[features_to_scale])
+    scaled_test = scaler.transform(test[features_to_scale])
+    
+    # Concatenate the scaled data to the original unscaled data
+    train_scaled = pd.concat([train, pd.DataFrame(scaled_train,index=train.index, columns = scaled_columns)],axis=1)
+    validate_scaled = pd.concat([validate, pd.DataFrame(scaled_validate,index=validate.index, columns = scaled_columns)],axis=1)
+    test_scaled = pd.concat([test, pd.DataFrame(scaled_test,index=test.index, columns = scaled_columns)],axis=1)
+
+    return train_scaled, validate_scaled, test_scaled
