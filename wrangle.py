@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import sklearn.preprocessing
+import numpy as np
 
 def wrangle_zillow():
     
@@ -32,12 +33,12 @@ def wrangle_zillow():
                             'yearbuilt':'year_built', 
                             'taxamount':'tax_amount'})
     
-    # Drops the rows with Null values, representing a very small percentage of the dataset (<0.6%)
-    df = df.dropna()
+#     # Drops the rows with Null values, representing a very small percentage of the dataset (<0.6%)
+#     df = df.dropna()
     
-    # Convert year built column to integer from float
-    df.year_built = df.year_built.astype('int64')
-    df.bedroom_cnt = df.bedroom_cnt.astype('int64')
+#     # Convert year built column to integer from float
+#     df.year_built = df.year_built.astype('int64')
+#     df.bedroom_cnt = df.bedroom_cnt.astype('int64')
 
 
     return df
