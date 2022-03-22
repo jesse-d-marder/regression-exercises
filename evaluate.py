@@ -53,11 +53,11 @@ def regression_errors(y, yhat):
 
     TSS = SSE + ESS
 
-    MSE = SSE/len(y)
+    MSE = mean_squared_error(y, yhat)
 
-    RMSE = MSE ** 0.5
+    RMSE = mean_squared_error(y, yhat, squared = False)
     
-    R2 = ESS/TSS
+    R2 = r2_score(y, yhat)
 
     return {'SSE':SSE,'ESS':ESS,'TSS':TSS,'MSE':MSE, 'RMSE':RMSE, 'R2': R2}
     
