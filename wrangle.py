@@ -61,7 +61,7 @@ def split_data(df, train_size_vs_train_test = 0.8, train_size_vs_train_val = 0.7
     return train, validate, test
 
 def scale_data(train, validate, test, features_to_scale):
-    """Scales Zillow data using MinMax Scaler. 
+    """Scales data using MinMax Scaler. 
     Accepts train, validate, and test datasets as inputs as well as a list of the features to scale. 
     Returns dataframe with scaled values added on as columns"""
     
